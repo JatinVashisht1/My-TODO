@@ -47,7 +47,11 @@ class AddEditToDoViewModel @Inject constructor(
                 detail = updatedNote.value.detail.trim(),
                 id = _noteState.value.id,
                 pin = updatedNote.value.pin,
-                timeStamp = System.currentTimeMillis()
+                timeStamp = System.currentTimeMillis(),
+                deadLineTime = updatedNote.value.deadLineTime,
+                deadLineDate = updatedNote.value.deadLineDate,
+                isWeekly = updatedNote.value.isWeekly,
+                isMonthly = updatedNote.value.isMonthly
             )
         )
     }

@@ -10,6 +10,10 @@ data class ToDoEntity(
     val detail: String = "",
     val pin: Boolean = false,
     val timeStamp: Long = 0,
+    val deadLineTime: Long = 0,
+    val deadLineDate: String = "",
+    val isWeekly: Boolean = false,
+    val isMonthly: Boolean = false,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
 ){

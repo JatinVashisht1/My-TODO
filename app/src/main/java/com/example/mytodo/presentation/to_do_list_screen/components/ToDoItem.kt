@@ -24,11 +24,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mytodo.core.Screen
 import com.example.mytodo.domain.model.ToDoEntity
+import com.example.mytodo.presentation.to_do_list_screen.DeleteToDoButton
 import com.example.mytodo.presentation.to_do_list_screen.ToDoListViewModel
+import com.example.mytodo.presentation.to_do_list_screen.components.to_do_item_components.EditToDoComponent
+import com.example.mytodo.presentation.to_do_list_screen.components.to_do_item_components.InsertToDoButton
+import com.example.mytodo.presentation.to_do_list_screen.components.to_do_item_components.LastUpdatedAndDeadline
+import com.example.mytodo.presentation.to_do_list_screen.components.to_do_item_components.ToDoItemTaskAndDetail
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalTime
 
 @Composable
 fun ToDoItem(
@@ -37,7 +43,6 @@ fun ToDoItem(
     viewModel: ToDoListViewModel,
     navHostController: NavController
 ) {
-    val dateFormat = SimpleDateFormat("dd/MM/yyyy")
     val scope = rememberCoroutineScope()
     Surface(
         color = if (isSystemInDarkTheme()) Color(183, 28, 28, 255) else Color(255, 224, 130, 255),
@@ -57,7 +62,11 @@ fun ToDoItem(
                                 detail = toDoItem.detail,
                                 id = toDoItem.id,
                                 pin = toDoItem.pin,
-                                timeStamp = toDoItem.timeStamp
+                                timeStamp = toDoItem.timeStamp,
+                                deadLineDate = toDoItem.deadLineDate,
+                                deadLineTime = toDoItem.deadLineTime,
+                                isMonthly = toDoItem.isMonthly,
+                                isWeekly = toDoItem.isWeekly
                             )
                         )
                     }
@@ -65,94 +74,32 @@ fun ToDoItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column() {
-                Text(
-                    text =  "Last Updated: " + DateFormat.getInstance().format(toDoItem.timeStamp),
-                    style = MaterialTheme.typography.body2,
-                            modifier = Modifier.padding(start = 8.dp, top = 8.dp)
-                )
+            Column {
+
+               LastUpdatedAndDeadline(toDoItem = toDoItem)
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    Row(modifier = Modifier.wrapContentWidth()) {
-                        CustomCheckBox(
-                            toDoItem = toDoItem,
-                            viewModel = viewModel,
-                            scope = scope,
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(8.dp)
-                        )
+                    Row(
+                        modifier = Modifier.wrapContentWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CustomCheckBox(toDoItem = toDoItem, viewModel = viewModel, scope = scope,
+                            modifier = Modifier.align(Alignment.CenterVertically).padding(8.dp))
 
-                        Column(modifier = Modifier.padding(8.dp)) {
-                            Row(
-//                        modifier = Modifier.fillMaxWidth()
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = toDoItem.task,
-                                    style = TextStyle(textDecoration = if (toDoItem.isCompleted) TextDecoration.LineThrough else null),
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontSize = MaterialTheme.typography.h6.fontSize,
-                                    color = if (toDoItem.isCompleted) Color.Gray else MaterialTheme.colors.primary,
-                                )
-
-                            }
-
-                            if (!toDoItem.isCompleted) {
-                                Text(
-                                    text = toDoItem.detail,
-                                    fontWeight = FontWeight.Normal,
-                                    maxLines = 7,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-                            }
-                        }
+                        ToDoItemTaskAndDetail(toDoItem = toDoItem)
                     }
 
-                    Row {
-                        IconButton(
-                            onClick = {
-                                scope.launch {
-                                    viewModel.deleteToDo(toDoItem)
-                                }
-                            },
-                            modifier = Modifier.align(Alignment.CenterVertically)
-                        ) {
-                            Icon(imageVector = Icons.Outlined.Delete, contentDescription = null)
-                        }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        DeleteToDoButton(viewModel = viewModel, scope = scope, modifier = Modifier.align(Alignment.CenterVertically), toDoItem = toDoItem)
 
-                        IconButton(
-                            onClick = {
-                                scope.launch(IO) {
-                                    viewModel.insertToDo(
-                                        ToDoEntity(
-                                            isCompleted = toDoItem.isCompleted,
-                                            task = toDoItem.task,
-                                            detail = toDoItem.detail,
-                                            pin = !toDoItem.pin,
-                                            id = toDoItem.id,
-                                            timeStamp = toDoItem.timeStamp
-                                        )
-                                    )
-                                }
-                            }
-                        ) {
-                            Icon(
-                                imageVector = if (!toDoItem.pin) Icons.Outlined.StarBorder else Icons.Outlined.Star,
-                                contentDescription = null
-                            )
-                        }
+                        InsertToDoButton(scope = scope, viewModel = viewModel , toDoItem = toDoItem )
 
-                        IconButton(
-                            onClick = { navHostController.navigate(Screen.AddEditScreen.route + "?id=${toDoItem.id}") },
-                            modifier = Modifier.align(Alignment.CenterVertically)
-                        ) {
-                            Icon(imageVector = Icons.Outlined.Edit, contentDescription = null)
-                        }
+                        EditToDoComponent(navHostController = navHostController, toDoItem = toDoItem)
                     }
                 }
             }

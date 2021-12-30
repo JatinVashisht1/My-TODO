@@ -23,6 +23,9 @@ class ToDoListViewModel @Inject constructor(
     private val _toDoState = mutableStateOf<ToDoState>(ToDoState())
     val toDoState = _toDoState
 
+    private val _toDoStateWeekly = mutableStateOf<ToDoState>(ToDoState())
+    val toDoStateWeekly = _toDoStateWeekly
+
     init {
         viewModelScope.launch(IO) {
             getAllToDo()
@@ -46,6 +49,7 @@ class ToDoListViewModel @Inject constructor(
             }
             .launchIn(viewModelScope)
     }
+
 
     suspend fun deleteCompletedToDo(){
         toDoUseCases.deleteCompletedToDo()
