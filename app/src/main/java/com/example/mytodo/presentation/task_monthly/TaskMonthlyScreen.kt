@@ -42,7 +42,11 @@ fun TaskMonthlyScreen(
             FloatingActionButton(
                 onClick = {
                     CoroutineScope(Dispatchers.Main).launch {
-                        navController.navigate(Screen.AddEditScreen.route)
+                        navController.navigate(Screen.AddEditScreen.route){
+                            launchSingleTop = true
+
+                        }
+
                     }
                 },
                 backgroundColor = if (isSystemInDarkTheme()) Color.DarkGray else Color.LightGray,

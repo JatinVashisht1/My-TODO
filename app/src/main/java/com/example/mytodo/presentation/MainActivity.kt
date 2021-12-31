@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.mytodo.core.Screen
 import com.example.mytodo.presentation.add_edit_to_do_screen.AddEditToDoScreen
+import com.example.mytodo.presentation.components.CustomBottomNavigation
 import com.example.mytodo.presentation.task_monthly.TaskMonthlyScreen
 import com.example.mytodo.presentation.task_weekly.TaskWeeklyScreen
 import com.example.mytodo.presentation.to_do_list_screen.ToDoListScreen
@@ -33,6 +34,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
+@ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,33 +49,7 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         scaffoldState = scaffoldState,
                         bottomBar = {
-                            BottomNavigation {
-                                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                                val currentDestination = navBackStackEntry?.destination
-                                items.forEach {screen ->  
-                                    BottomNavigationItem(
-                                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                                        icon = { Icon(imageVector = screen.icon!!, contentDescription = null) },
-                                        label = { Text(text = screen.label)},
-                                        onClick = {
-                                            navController.navigate(screen.route) {
-                                                // Pop up to the start destination of the graph to
-                                                // avoid building up a large stack of destinations
-                                                // on the back stack as users select items
-                                                popUpTo(navController.graph.findStartDestination().id) {
-                                                    saveState = true
-                                                }
-                                                // Avoid multiple copies of the same destination when
-                                                // reselecting the same item
-                                                launchSingleTop = true
-                                                // Restore state when reselecting a previously selected item
-                                                restoreState = true
-                                            }
-                                        },
-
-                                    )
-                                }
-                            }
+                            CustomBottomNavigation(navController = navController, items = items)
                         },
 
                     ) {
