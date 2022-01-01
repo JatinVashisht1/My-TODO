@@ -1,6 +1,7 @@
 package com.example.mytodo.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -33,6 +34,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import java.text.DateFormat
+import java.time.LocalDate
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
@@ -40,11 +43,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             val navController = rememberNavController()
             val scaffoldState = rememberScaffoldState()
             val items = listOf(Screen.HomeScreen, Screen.TaskWeekly, Screen.TaskMonthly)
             MyTODOTheme {
                 // A surface container using the 'background' color from the theme
+
                 Surface(color = MaterialTheme.colors.background) {
                     Scaffold(
                         scaffoldState = scaffoldState,

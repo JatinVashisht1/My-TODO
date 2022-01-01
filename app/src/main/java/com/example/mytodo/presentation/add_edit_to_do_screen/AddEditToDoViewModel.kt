@@ -51,7 +51,7 @@ class AddEditToDoViewModel @Inject constructor(
                 deadLineTime = updatedNote.value.deadLineTime,
                 deadLineDate = updatedNote.value.deadLineDate,
                 isWeekly = updatedNote.value.isWeekly,
-                isMonthly = updatedNote.value.isMonthly
+                isMonthly = updatedNote.value.isMonthly,
             )
         )
     }
