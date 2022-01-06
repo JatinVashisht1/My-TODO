@@ -6,4 +6,5 @@ data class ToDoUseCases(
     val deleteCompletedToDo: DeleteCompletedToDo,
     val getAllToDo: GetAllToDo,
     val getToDoById: GetToDoById,
+    val getToDoByDeadLine: GetToDoByDeadLine,
 )

@@ -9,4 +9,5 @@ interface ToDoRepository {
     suspend fun deleteToDo(toDoEntity: ToDoEntity)
     suspend fun deleteCompletedToDo()
     suspend fun insertToDo(toDoEntity: ToDoEntity)
+    fun getToDoByDeadLine() : Flow<List<ToDoEntity>>
 }

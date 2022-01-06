@@ -22,4 +22,7 @@ interface ToDoDao{
 
     @Query("DELETE FROM todo WHERE isCompleted")
     suspend fun deleteCompletedToDo()
+
+    @Query("SELECT * FROM todo ORDER BY deadLineDate")
+    fun ToDoByDeadline() : Flow<List<ToDoEntity>>
 }

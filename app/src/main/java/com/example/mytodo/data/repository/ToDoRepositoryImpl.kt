@@ -14,6 +14,10 @@ class ToDoRepositoryImpl(private val toDoDao: ToDoDao) : ToDoRepository {
         return toDoDao.deleteCompletedToDo()
     }
 
+    override fun getToDoByDeadLine(): Flow<List<ToDoEntity>> {
+        return toDoDao.ToDoByDeadline()
+    }
+
     override suspend fun getToDoById(id: Int): ToDoEntity? {
         return toDoDao.getToDoById(id = id)
     }

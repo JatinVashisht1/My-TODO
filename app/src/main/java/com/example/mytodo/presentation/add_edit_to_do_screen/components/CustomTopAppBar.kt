@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Save
@@ -26,6 +23,7 @@ import com.example.mytodo.presentation.add_edit_to_do_screen.AddEditToDoViewMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+@ExperimentalMaterialApi
 @Composable
 fun CustomTopAppBar(
     viewModel: AddEditToDoViewModel,
@@ -59,7 +57,8 @@ fun CustomTopAppBar(
             onClick = {
                 scope.launch {
                     try {
-                        viewModel.save()
+                        viewModel.
+                        save(context = context)
                         navController.navigateUp()
                     } catch (e: InvalidNoteException) {
                         Toast.makeText(

@@ -38,7 +38,8 @@ object AppModule {
         deleteToDo = DeleteToDo(repository = repository),
         getAllToDo = GetAllToDo(repository = repository),
         getToDoById = GetToDoById(repository = repository),
-        deleteCompletedToDo = DeleteCompletedToDo(repository = repository)
+        deleteCompletedToDo = DeleteCompletedToDo(repository = repository),
+        getToDoByDeadLine = GetToDoByDeadLine(repository = repository)
     )
 
 }
