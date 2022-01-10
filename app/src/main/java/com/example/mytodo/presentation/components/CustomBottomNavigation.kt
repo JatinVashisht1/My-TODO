@@ -68,9 +68,7 @@ fun CustomBottomNavigation(
                             }
                         },
                         alwaysShowLabel = false,
-
-
-                        )
+                    )
                 }
             }
         }

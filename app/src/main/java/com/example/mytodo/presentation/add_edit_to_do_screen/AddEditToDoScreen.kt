@@ -211,8 +211,6 @@ fun AddEditToDoScreen(
                             )
 
                             ActionWeekly(
-                                viewModel = viewModel,
-                                task = task,
                                 sheetState = bottomSheetState
                             )
 

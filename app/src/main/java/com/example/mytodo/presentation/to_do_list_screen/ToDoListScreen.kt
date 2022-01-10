@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.mytodo.core.Screen
-import com.example.mytodo.domain.model.ToDoEntity
 import com.example.mytodo.presentation.to_do_list_screen.components.CustomAlertDialogBox
 import com.example.mytodo.presentation.to_do_list_screen.components.ToDoItem
 import kotlinx.coroutines.CoroutineScope
@@ -35,15 +34,12 @@ fun ToDoListScreen(
     navController: NavController,
     viewModel: ToDoListViewModel = hiltViewModel(),
 ) {
-    val todo = ToDoEntity(task = "First Task")
     val result = viewModel.toDoState.value
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
-    val expanded = remember { mutableStateOf(false) }
     val alertDialogState = remember { mutableStateOf(false) }
     Scaffold(
         scaffoldState = scaffoldState,
-
         topBar = {
             Row(
                 modifier = Modifier

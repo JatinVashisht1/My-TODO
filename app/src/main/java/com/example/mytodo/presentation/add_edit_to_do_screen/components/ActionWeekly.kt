@@ -18,8 +18,6 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @Composable
 fun ActionWeekly(
-    viewModel: AddEditToDoViewModel,
-    task: ToDoEntity,
     sheetState: BottomSheetScaffoldState,
 ) {
     val scope = rememberCoroutineScope()
