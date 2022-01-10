@@ -34,7 +34,6 @@ class MyAlarmService() : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = Constants.CHANNEL_NAME
             val descriptionText = "Alarm goes off bitch"
-            val importance = NotificationManagerCompat.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(Constants.CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH).apply {
                     description = descriptionText
                 }

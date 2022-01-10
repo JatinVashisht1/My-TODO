@@ -1,13 +1,9 @@
 package com.example.mytodo.presentation.to_do_list_screen.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AddAlert
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.DeleteForever
@@ -60,7 +56,7 @@ fun CustomAlertDialogBox(
 //                    backgroundColor = Color(46, 125, 50, 255)
                 )
             ) {
-                Row() {
+                Row{
                     Text(text = "Delete", color = Color.White)
                     Icon(
                         imageVector = Icons.Outlined.Delete,

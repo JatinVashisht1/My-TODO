@@ -55,8 +55,7 @@ fun ActionSetTime(
         },
 
         ) {
-        timepicker() {
-
+        timepicker{
             time.value = it.toNanoOfDay()
         }
     }

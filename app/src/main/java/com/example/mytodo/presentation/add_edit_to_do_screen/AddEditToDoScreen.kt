@@ -7,14 +7,12 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,7 +20,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import com.example.mytodo.domain.model.ToDoEntity
 import com.example.mytodo.presentation.add_edit_to_do_screen.components.*
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
@@ -37,7 +34,6 @@ fun AddEditToDoScreen(
 ) {
     val dialogState = rememberMaterialDialogState()
     val dateDialogState = rememberMaterialDialogState()
-    val a = rememberSaveable { mutableStateOf(false) }
     val toDoEntity = viewModel.noteState.value
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()

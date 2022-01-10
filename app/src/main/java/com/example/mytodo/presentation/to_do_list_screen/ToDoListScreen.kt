@@ -106,7 +106,6 @@ fun ToDoListScreen(
                     )
                 )
         ) {
-//            Text("Test Text", color = Color.White)
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(result.toDoList) { item ->
                     if (!item.isMonthly && !item.isWeekly)
