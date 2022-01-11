@@ -21,9 +21,7 @@ fun LastUpdatedAndDeadline(
         "HomeScreen",
         "date is ${
             DateFormat.getInstance().format(
-                toDoItem.deadLineDate * (24 * 60 * 60 * (10.0.pow(3.0)).toLong()) + (toDoItem.deadLineTime / 10.0.pow(
-                    6
-                )) - 19800 * 10.0.pow(3)
+                toDoItem.deadLineDate * (24 * 60 * 60 * (10.0.pow(3.0)).toLong()) + toDoItem.deadLineTime - 19800 * 10.0.pow(3)//19800*10.0.pow(3) is subtracted because of 
             )
         }"
     )
@@ -34,8 +32,8 @@ fun LastUpdatedAndDeadline(
     )
     Text(
         text = "DeadLine: ${LocalDate.ofEpochDay(toDoItem.deadLineDate)} ${
-            LocalTime.ofNanoOfDay(
-                toDoItem.deadLineTime
+            LocalTime.ofSecondOfDay(
+                toDoItem.deadLineTime.toLong()
             )
         }",
         style = MaterialTheme.typography.body2,

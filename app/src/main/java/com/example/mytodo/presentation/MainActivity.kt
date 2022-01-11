@@ -60,7 +60,6 @@ class MainActivity : ComponentActivity() {
                                 AddEditToDoScreen(
                                     context = this@MainActivity,
                                     navController = navController,
-
                                 )
                             }
                             composable(Screen.TaskWeekly.route) {

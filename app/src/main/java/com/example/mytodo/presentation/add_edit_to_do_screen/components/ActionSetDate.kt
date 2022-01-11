@@ -70,7 +70,7 @@ fun ActionSetDate(
             var a = it.toEpochDay()
             a *= 24*60*60*(10.0.pow(3.0)).toLong()
             a -= (5*60*60*(10.0.pow(3.0)) + 30*60*(10.0.pow(3.0))).toLong()
-            Log.d("HomeScreen", "nanoseconds value: $a and value in date is ${DateFormat.getInstance().format(a)}")
+            Log.d("HomeScreen", "millisecond value: $a and value in date is ${DateFormat.getInstance().format(a)}")
             date.value = it.toEpochDay()
         }
     }

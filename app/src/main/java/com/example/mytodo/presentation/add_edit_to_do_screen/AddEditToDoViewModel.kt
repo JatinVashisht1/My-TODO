@@ -1,7 +1,10 @@
 package com.example.mytodo.presentation.add_edit_to_do_screen
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -44,7 +47,7 @@ class AddEditToDoViewModel @Inject constructor(
     }
 
     @ExperimentalMaterialApi
-    suspend fun save() {
+    suspend fun save(context: Context) {
         useCases.insertToDo(
             ToDoEntity(
                 isCompleted = updatedNote.value.isCompleted,
@@ -59,5 +62,14 @@ class AddEditToDoViewModel @Inject constructor(
                 isMonthly = updatedNote.value.isMonthly,
             )
         )
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, MyAlarmService::class.java)
+        intent.putExtra("task", updatedNote.value.task)
+
+        val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
+
+        val time = (updatedNote.value.deadLineDate * 24 * 60 * 60 * 1000).toLong() - (5 * 60 * 60 * 1000).toLong() - (30 * 60 * 1000).toLong() + (updatedNote.value.deadLineTime * 1000).toLong()
+        Log.d("ViewModel", "system time is: ${System.currentTimeMillis()} and by time picker is: ${time.toLong()} and updateDeadline: ${updatedNote.value.deadLineTime.toLong()}")
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
     }
 }

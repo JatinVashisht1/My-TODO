@@ -58,7 +58,7 @@ fun CustomTopAppBar(
                 scope.launch {
                     try {
                         viewModel.
-                        save()
+                        save(context)
                         navController.navigateUp()
                     } catch (e: InvalidNoteException) {
                         Toast.makeText(

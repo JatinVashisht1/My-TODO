@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -20,11 +21,12 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.MaterialDialogState
 import com.vanpra.composematerialdialogs.datetime.time.timepicker
 
+@ExperimentalMaterialApi
 @Composable
 fun ActionSetTime(
     dialogState: MaterialDialogState,
     viewModel: AddEditToDoViewModel,
-    toDoEntity: ToDoEntity
+    toDoEntity: ToDoEntity,
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -33,7 +35,8 @@ fun ActionSetTime(
         Text("Set Time")
     }
 
-    val time = rememberSaveable { mutableStateOf<Long>(0) }
+    val time = rememberSaveable { mutableStateOf<Int>(0) }
+
     MaterialDialog(
         dialogState = dialogState,
         buttons = {
@@ -56,8 +59,8 @@ fun ActionSetTime(
 
         ) {
         timepicker{
-            time.value = it.toNanoOfDay()
+            time.value = it.toSecondOfDay()
+
         }
     }
-
 }
