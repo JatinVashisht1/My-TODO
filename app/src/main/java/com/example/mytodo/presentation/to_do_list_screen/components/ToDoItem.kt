@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -27,7 +28,8 @@ fun ToDoItem(
     modifier: Modifier = Modifier,
     toDoItem: ToDoEntity,
     viewModel: ToDoListViewModel,
-    navHostController: NavController
+    navHostController: NavController,
+    onDeletePressed: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     Surface(
@@ -81,7 +83,7 @@ fun ToDoItem(
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        DeleteToDoButton(viewModel = viewModel, scope = scope, modifier = Modifier.align(Alignment.CenterVertically), toDoItem = toDoItem)
+                        DeleteToDoButton(modifier = Modifier.align(Alignment.CenterVertically), onDeletePressed = onDeletePressed)
 
                         InsertToDoButton(scope = scope, viewModel = viewModel , toDoItem = toDoItem )
 

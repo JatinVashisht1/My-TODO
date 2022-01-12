@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -35,6 +33,7 @@ fun TaskWeeklyScreen(
 
     val result = viewModel.toDoState.value
     val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
     Scaffold(
         scaffoldState = scaffoldState,
         floatingActionButton = {
@@ -42,7 +41,7 @@ fun TaskWeeklyScreen(
             FloatingActionButton(
                 onClick = {
                     CoroutineScope(Dispatchers.Main).launch {
-                        navController.navigate(Screen.AddEditScreen.route){
+                        navController.navigate(Screen.AddEditScreen.route) {
                             launchSingleTop = true
                         }
                     }
@@ -77,8 +76,17 @@ fun TaskWeeklyScreen(
                             modifier = Modifier.fillMaxWidth(),
                             toDoItem = item,
                             viewModel = viewModel,
-                            navHostController = navController
-                        )
+                            navHostController = navController,
+                        ) {
+                            scope.launch {
+                                viewModel.deletedNote = item
+                                viewModel.deleteToDo(item)
+                                val r = scaffoldState.snackbarHostState.showSnackbar("Task deleted!", "Undo")
+                                if (r == SnackbarResult.ActionPerformed) {
+                                    viewModel.restoreNote()
+                                }
+                            }
+                        }
                     }
                 }
             }

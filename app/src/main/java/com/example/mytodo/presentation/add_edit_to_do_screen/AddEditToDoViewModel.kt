@@ -64,7 +64,7 @@ class AddEditToDoViewModel @Inject constructor(
         )
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MyAlarmService::class.java)
-        intent.putExtra("task", updatedNote.value.task)
+//        intent.putExtra("task", updatedNote.value.task)
 
         val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
 

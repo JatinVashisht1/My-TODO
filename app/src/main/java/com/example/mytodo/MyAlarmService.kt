@@ -22,12 +22,12 @@ class MyAlarmService : BroadcastReceiver() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent = PendingIntent.getActivity(context, 0, intent2, 0)
-        val task = intent?.getStringExtra("task")
+//        val task = intent?.getStringExtra("task")
         createNotificationChannel(context!!)
         val builder = NotificationCompat.Builder(context, Constants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_alarm)
             .setContentText("Task Deadline")
-            .setContentTitle(task)
+            .setContentTitle("Times up!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

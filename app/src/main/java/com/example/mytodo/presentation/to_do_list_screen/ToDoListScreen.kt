@@ -76,7 +76,7 @@ fun ToDoListScreen(
             FloatingActionButton(
                 onClick = {
                     CoroutineScope(Dispatchers.Main).launch {
-                        navController.navigate(Screen.AddEditScreen.route){
+                        navController.navigate(Screen.AddEditScreen.route) {
                             launchSingleTop = true
                         }
                     }
@@ -113,8 +113,17 @@ fun ToDoListScreen(
                             modifier = Modifier.fillMaxWidth(),
                             toDoItem = item,
                             viewModel = viewModel,
-                            navHostController = navController
-                        )
+                            navHostController = navController,
+                        ) {
+                            scope.launch {
+                                viewModel.deletedNote = item
+                                viewModel.deleteToDo(item)
+                                val r = scaffoldState.snackbarHostState.showSnackbar("Task deleted!", "Undo")
+                                if (r == SnackbarResult.ActionPerformed) {
+                                    viewModel.restoreNote()
+                                }
+                            }
+                        }
                 }
             }
         }
